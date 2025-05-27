@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Edit Link Target
 // @namespace        http://tampermonkey.net/
-// @version        0.7
+// @version        0.8
 // @description        最新版参照のリンクカード➔ツール一覧表➔ツール纏めページ のリンクチェック・編集
 // @author        Ameba Blog User
 // @match        https://ameblo.jp/*
@@ -177,6 +177,8 @@ if(location.hostname=='blog.ameba.jp'){ // 管理・編集画面が条件
                                 'padding: 20px; border: 1px solid #aaa; background: #fff; '+
                                 'font: normal 16px/22px Meiryo; } '+
                                 '.ver_in1 { width: 68px; padding: 2px 2px 0 0; text-align: center; } '+
+                                'input[type=number].ver_in1::-webkit-inner-spin-button { '+
+                                'height: 20px; margin-top: 2px; } '+
                                 '.ver_in2 { padding: 2px 6px 0; margin: 0 20px; } '+
                                 '.ver_in3 { padding: 2px 6px 0;} '+
                                 '</style></div>';
@@ -305,6 +307,8 @@ if(location.hostname=='blog.ameba.jp'){ // 管理・編集画面が条件
                                     'padding: 20px; border: 1px solid #aaa; background: #fff; '+
                                     'font: normal 16px/22px Meiryo; } '+
                                     '.ver_in1 { width: 68px; padding: 2px 2px 0 0; text-align: center; } '+
+                                    'input[type=number].ver_in1::-webkit-inner-spin-button { '+
+                                    'height: 20px; margin-top: 2px; } '+
                                     '.ver_in2 { padding: 2px 6px 0; margin: 0 20px; } '+
                                     '.ver_in3 { padding: 2px 6px 0;} '+
                                     '</style></div>';
