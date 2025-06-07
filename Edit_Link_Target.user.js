@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Edit Link Target
 // @namespace        http://tampermonkey.net/
-// @version        0.8
+// @version        0.9
 // @description        最新版参照のリンクカード➔ツール一覧表➔ツール纏めページ のリンクチェック・編集
 // @author        Ameba Blog User
 // @match        https://ameblo.jp/*
@@ -190,10 +190,12 @@ if(location.hostname=='blog.ameba.jp'){ // 管理・編集画面が条件
                             let ver_in1=document.querySelector('.ver_in1');
                             let tool_ver=tool_ver_td.textContent;
                             if(tool_ver && ver_in1){
-                                ver_in1.value=tool_ver/1;
+                                ver_in1.value=(tool_ver/1).toFixed(1);
                                 ver_in1.onchange=function(){
                                     td_a.removeAttribute('style'); // 赤マークを消す
-                                    tool_ver_td.textContent=(ver_in1.value/1).toFixed(1); }}
+                                    let new_ver=(ver_in1.value/1).toFixed(1);
+                                    ver_in1.value=new_ver;
+                                    tool_ver_td.textContent=new_ver; }}
 
 
                             let ver_in2=document.querySelector('.ver_in2');
@@ -322,9 +324,10 @@ if(location.hostname=='blog.ameba.jp'){ // 管理・編集画面が条件
                                 if(title_inner && ver_in1){
                                     let ver_reg=/[0-9]\.[0-9]/;
                                     let ver_text=title_inner.match(ver_reg);
-                                    ver_in1.value=ver_text
+                                    ver_in1.value=(ver_text/1).toFixed(1);
                                     ver_in1.onchange=function(){
                                         let new_ver=(ver_in1.value/1).toFixed(1);
+                                        ver_in1.value=new_ver;
                                         title.innerHTML=title_inner.replace(ver_reg, new_ver); }}
 
 
@@ -352,4 +355,3 @@ if(location.hostname=='blog.ameba.jp'){ // 管理・編集画面が条件
     } // if(identity=='ELT')
 
 } // 管理・編集画面が条件
-
