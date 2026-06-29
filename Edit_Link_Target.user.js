@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Edit Link Target
 // @namespace        http://tampermonkey.net/
-// @version        0.9
+// @version        1.0
 // @description        最新版参照のリンクカード➔ツール一覧表➔ツール纏めページ のリンクチェック・編集
 // @author        Ameba Blog User
 // @match        https://ameblo.jp/*
@@ -102,7 +102,7 @@ if(location.hostname=='blog.ameba.jp'){ // 管理・編集画面が条件
                             if(tool_link[k].textContent==tool_name){
 
                                 tool_link[k].scrollIntoView({block: "center"});
-                                tool_link[k].style.boxShadow='-8px 0 0 red';
+                                if_mark(k); // ターゲット行に赤のアウトラインを表示
 
                                 setTimeout(()=>{ // アップデートチェック
                                     update_check(k);
@@ -114,7 +114,24 @@ if(location.hostname=='blog.ameba.jp'){ // 管理・編集画面が条件
                             }}
 
 
-                        before_end(); // 記事保存をした場合に赤マークを消す
+                        function if_mark(k){
+                            let editor_iframe=document.querySelector('.cke_wysiwyg_frame');
+                            if(editor_iframe){
+                                let iframe_doc=editor_iframe.contentWindow.document;
+                                if(iframe_doc){
+                                    let tool_link=iframe_doc.querySelectorAll('td:nth-child(2) a');
+                                    let tool_link_tr=tool_link[k].closest('tr');
+
+                                    let tr_k;
+                                    let all_tr=iframe_doc.querySelectorAll('tr');
+                                    for(let k=0; k<all_tr.length; k++){
+                                        if(all_tr[k]==tool_link_tr){
+                                            tr_k=k; }}
+
+                                    let style='<style class="tr_mark">'+
+                                        'tr:nth-child('+ tr_k +'){ outline: 2px solid red; }</style>';
+                                    if(!iframe_doc.querySelector('.tr_mark')){
+                                        iframe_doc.documentElement.insertAdjacentHTML('beforeend', style); }}}}
 
 
 
@@ -214,29 +231,6 @@ if(location.hostname=='blog.ameba.jp'){ // 管理・編集画面が条件
                                         document.querySelector('#ver_in').remove(); }}}
 
                         } // set_version()
-
-
-
-                        function before_end(){
-                            editor_iframe=document.querySelector('.cke_wysiwyg_frame');
-                            let submitButton=document.querySelectorAll('.js-submitButton');
-                            submitButton[0].addEventListener("mousedown", all_clear, false);
-                            submitButton[1].addEventListener("mousedown", all_clear, false);
-
-                            function all_clear(){
-                                if(!editor_iframe){ //「HTML表示」編集画面の場合
-                                    event.stopImmediatePropagation();
-                                    event.preventDefault(); }
-
-                                if(editor_iframe){ //「通常表示」編集画面の場合
-                                    iframe_doc=editor_iframe.contentWindow.document;
-                                    if(iframe_doc){
-                                        let tool_link=iframe_doc.querySelectorAll('td:first-child a');
-                                        for(let k=0; k<tool_link.length; k++){
-                                            if(tool_link[k].hasAttribute('style')){
-                                                tool_link[k].removeAttribute('style'); }}}}
-
-                            }} // before_end()
 
                     } // 最新版一覧ページの編集画面の場合
 
