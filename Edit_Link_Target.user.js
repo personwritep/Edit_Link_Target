@@ -316,7 +316,7 @@ if(location.hostname=='blog.ameba.jp'){ // 管理・編集画面が条件
                                 let ver_in1=document.querySelector('.ver_in1');
                                 let title_inner=title.innerHTML;
                                 if(title_inner && ver_in1){
-                                    let ver_reg=/[0-9]\.[0-9]/;
+                                    let ver_reg=/\d+\.\d/;
                                     let ver_text=title_inner.match(ver_reg);
                                     ver_in1.value=(ver_text/1).toFixed(1);
                                     ver_in1.onchange=function(){
