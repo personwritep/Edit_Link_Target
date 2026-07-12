@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Edit Link Target
 // @namespace        http://tampermonkey.net/
-// @version        1.0
+// @version        1.1
 // @description        最新版参照のリンクカード➔ツール一覧表➔ツール纏めページ のリンクチェック・編集
 // @author        Ameba Blog User
 // @match        https://ameblo.jp/*
@@ -15,6 +15,7 @@
 // @match        https://blog.ameba.jp/ucs/entry/srventryupdateinput.do?id=12742312787*
 // @match        https://blog.ameba.jp/ucs/entry/srventryupdateinput.do?id=12742386229*
 // @match        https://blog.ameba.jp/ucs/entry/srventryupdateinput.do?id=12828652236*
+// @match        https://blog.ameba.jp/ucs/entry/srventryupdateinput.do?id=12972371603*
 // @icon        https://www.google.com/s2/favicons?sz=64&domain=ameblo.jp
 // @noframes
 // @grant        none
